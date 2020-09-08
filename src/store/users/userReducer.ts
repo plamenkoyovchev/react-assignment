@@ -8,6 +8,7 @@ import {
 
 interface IUserState {
   currentUser?: User;
+  loggedIn: boolean;
   loading: boolean;
   error: string;
 }
@@ -15,6 +16,7 @@ interface IUserState {
 const initialState: IUserState = {
   loading: false,
   error: "",
+  loggedIn: false,
 };
 
 const userReducer = (
@@ -32,12 +34,14 @@ const userReducer = (
         ...state,
         loading: false,
         error: action.payload,
+        loggedIn: false,
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
         loading: false,
+        loggedIn: true,
       };
     default:
       return state;

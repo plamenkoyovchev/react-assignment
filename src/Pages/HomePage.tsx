@@ -6,9 +6,9 @@ import { useSelector } from "react-redux";
 import { RootStore } from "../store/store";
 
 const HomePage = () => {
-  const { currentUser } = useSelector((state: RootStore) => state.user);
+  const { loggedIn } = useSelector((state: RootStore) => state.user);
 
-  return <>{currentUser ? <Navigation /> : <LoginForm />}</>;
+  return <>{loggedIn ? <Navigation /> : <LoginForm />}</>;
 };
 
 export default HomePage;
