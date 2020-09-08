@@ -1,22 +1,14 @@
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
 
 import Navigation from "../components/Navigation/Navigation";
 import LoginForm from "../components/LoginForm";
+import { useSelector } from "react-redux";
+import { RootStore } from "../store/store";
 
-const mapStateToProps = (state: any) => ({
-  user: state.currentUser,
-});
+const HomePage = () => {
+  const { currentUser } = useSelector((state: RootStore) => state.user);
 
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-const HomePage = (props: PropsFromRedux) => {
-  const { user } = props;
-
-  console.log(user);
-  return <>{user ? <Navigation /> : <LoginForm />}</>;
+  return <>{currentUser ? <Navigation /> : <LoginForm />}</>;
 };
 
-export default connector(HomePage);
+export default HomePage;
