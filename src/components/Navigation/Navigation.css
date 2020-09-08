@@ -1,0 +1,94 @@
+.main-header {
+    background-color: #2ddf5c;
+    padding: 1rem 1rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.main-nav {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.main-header__brand {
+    text-decoration: none;
+    font-weight: bold;
+    color: #0e4f1f;
+    font-size: 1.4rem;
+    height: 1.4rem;
+    display: inline-block;
+}
+
+.main-header__brand img {
+    height: 100%;
+}
+
+.main-nav {
+    width: calc(100% - 60px);
+}
+
+.main-nav__items {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.main-nav__item {
+    display: inline-block;
+    margin: 0 0.6rem;
+}
+
+.main-nav__item>a {
+    color: #0e4f1f;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.2rem 0;
+}
+
+.main-nav__item>a:hover {
+    border-bottom: 3px solid white;
+    color: white;
+}
+
+.main-nav__item>a:active {
+    color: white;
+}
+
+.main-nav__item--cta>a {
+    color: white;
+    background-color: #ff1b68;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.main-nav__item--cta>a:hover,
+.main-nav__item--cta>a:active {
+    color: #ff1b68;
+    background: white;
+    border: none;
+}
+
+.button {
+    background: #0e4f1f;
+    color: white;
+    font: inherit;
+    font-weight: bold;
+    border: 1.5px solid #0e4f1f;
+    padding: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.button:hover,
+.button:active {
+    background: white;
+    color: #0e4f1f;
+}
+
+.button:focus {
+    /* Outline is not part of the box model */
+    outline: none;
+}
