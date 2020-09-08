@@ -8,7 +8,7 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 
 export type User = {
   username: string;
-  roles: string[];
+  role: string;
 };
 
 export interface ILoginStart {

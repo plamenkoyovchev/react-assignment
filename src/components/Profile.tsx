@@ -10,12 +10,9 @@ const Profile = () => {
   return (
     <div className="page">
       <p>Hello, {currentUser?.username}</p>
-      <ul>
-        Your roles are:
-        {currentUser?.roles.map((role) => (
-          <li>{role}</li>
-        ))}
-      </ul>
+      <p>
+        Your role is: <strong>{currentUser?.role}</strong>
+      </p>
     </div>
   );
 };

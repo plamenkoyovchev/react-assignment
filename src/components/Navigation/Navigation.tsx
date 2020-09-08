@@ -1,36 +1,32 @@
 import React from "react";
 
 import "./Navigation.css";
+import NavItem from "./NavItem";
 
-import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../store/users/userActions";
+import { RootStore } from "../../store/store";
+import { navigationAccess } from "../../data/navigationAccess";
 
 const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch();
 
+  const { currentUser } = useSelector((state: RootStore) => state.user);
   const onLogoutClickHandler = () => {
     dispatch(logout());
     history.push("/");
   };
 
+  const userNavItems = navigationAccess[currentUser?.role || ""];
+
   return (
     <header className="main-header">
       <nav className="main-nav">
         <ul className="main-nav__items">
-          <li className="main-nav__item">
-            <NavLink to="/items">Items</NavLink>
-          </li>
-          <li className="main-nav__item">
-            <NavLink to="/progress">Progress</NavLink>
-          </li>
-          <li className="main-nav__item">
-            <NavLink to="/profile">Profile</NavLink>
-          </li>
-          <li className="main-nav__item">
-            <NavLink to="/administration">Administration</NavLink>
-          </li>
+          {currentUser &&
+            userNavItems.map((item) => <NavItem key={item.id} item={item} />)}
           <li
             onClick={onLogoutClickHandler}
             className="main-nav__item main-nav__item--cta"

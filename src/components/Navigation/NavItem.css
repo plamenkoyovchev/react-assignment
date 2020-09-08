@@ -1,0 +1,21 @@
+.main-nav__item {
+    display: inline-block;
+    margin: 0 0.6rem;
+}
+
+.main-nav__item>a {
+    color: #0e4f1f;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.2rem 0;
+}
+
+.main-nav__item>a:hover {
+    border-bottom: 3px solid white;
+    color: white;
+}
+
+.main-nav__item>a:active,
+.active-link {
+    color: white;
+}
