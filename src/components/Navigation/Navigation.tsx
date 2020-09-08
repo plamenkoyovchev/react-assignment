@@ -9,20 +9,20 @@ const Navigation = () => {
     <header className="main-header">
       <nav className="main-nav">
         <ul className="main-nav__items">
-          <NavLink to="/items" className="main-nav__items">
-            Items
-          </NavLink>
-          <NavLink to="/progress" className="main-nav__item">
-            Progress
-          </NavLink>
-          <NavLink to="/profile" className="main-nav__item">
-            Profile
-          </NavLink>
-          <NavLink to="/administration" className="main-nav__item">
-            Administration
-          </NavLink>
+          <li className="main-nav__item">
+            <NavLink to="/items">Items</NavLink>
+          </li>
+          <li className="main-nav__item">
+            <NavLink to="/progress">Progress</NavLink>
+          </li>
+          <li className="main-nav__item">
+            <NavLink to="/profile">Profile</NavLink>
+          </li>
+          <li className="main-nav__item">
+            <NavLink to="/administration">Administration</NavLink>
+          </li>
           <li className="main-nav__item main-nav__item--cta">
-            <button>Logout</button>
+            <a>Logout</a>
           </li>
         </ul>
       </nav>
