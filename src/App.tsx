@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from "./store/store";
+
+import { setCurrentUser } from "./store/users/userActions";
 
 import HomePage from "./Pages/HomePage";
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -16,7 +18,12 @@ import AdministrationPage from "./Pages/AdministrationPage";
 import Navigation from "./components/Navigation/Navigation";
 
 function App() {
-  const { loggedIn } = useSelector((state: RootStore) => state.user);
+  const { currentUser } = useSelector((state: RootStore) => state.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setCurrentUser());
+  }, []);
 
   return (
     <div className="App">
@@ -29,7 +36,9 @@ function App() {
             <Switch>
               <Route
                 path="/auth"
-                render={() => (loggedIn ? <Redirect to="/" /> : <LoginForm />)}
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <LoginForm />
+                }
               />
               <Route path="/items" component={ItemsPage} />
               <Route path="/progress" component={ProgressPage} />

@@ -2,9 +2,19 @@ import React from "react";
 
 import "./Navigation.css";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter, RouteComponentProps } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-const Navigation = () => {
+import { logout } from "../../store/users/userActions";
+
+const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
+  const dispatch = useDispatch();
+
+  const onLogoutClickHandler = () => {
+    dispatch(logout());
+    history.push("/");
+  };
+
   return (
     <header className="main-header">
       <nav className="main-nav">
@@ -21,7 +31,10 @@ const Navigation = () => {
           <li className="main-nav__item">
             <NavLink to="/administration">Administration</NavLink>
           </li>
-          <li className="main-nav__item main-nav__item--cta">
+          <li
+            onClick={onLogoutClickHandler}
+            className="main-nav__item main-nav__item--cta"
+          >
             <a>Logout</a>
           </li>
         </ul>
@@ -30,4 +43,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default withRouter(Navigation);

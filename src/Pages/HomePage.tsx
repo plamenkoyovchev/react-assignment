@@ -8,13 +8,15 @@ import { RootStore } from "../store/store";
 import Loader from "../components/UI/Loader";
 
 const HomePage = () => {
-  const { loggedIn, loading } = useSelector((state: RootStore) => state.user);
+  const { currentUser, loading } = useSelector(
+    (state: RootStore) => state.user
+  );
 
   if (loading) {
     return <Loader />;
   }
 
-  return <>{loggedIn ? <Navigation /> : <LoginForm />}</>;
+  return <>{currentUser ? <Navigation /> : <LoginForm />}</>;
 };
 
 export default HomePage;

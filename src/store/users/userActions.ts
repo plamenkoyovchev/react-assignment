@@ -3,9 +3,14 @@ import {
   LOGIN_START,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
+  LOGOUT,
+  SET_CURRENT_USER,
   ILoginStart,
   ILoginSuccess,
   ILoginFailure,
+  ILogout,
+  ISetCurrentUser,
+  User,
 } from "./userActionTypes";
 import users from "../../data/users.json";
 
@@ -21,7 +26,7 @@ const loginStart = (): ILoginStart => {
   };
 };
 
-const loginSuccess = (loggedUser: any): ILoginSuccess => {
+const loginSuccess = (loggedUser: User): ILoginSuccess => {
   return {
     type: LOGIN_SUCCESS,
     payload: loggedUser,
@@ -35,6 +40,19 @@ const loginFailure = (error: string): ILoginFailure => {
   };
 };
 
+const signout = (): ILogout => {
+  return {
+    type: LOGOUT,
+  };
+};
+
+const setUser = (user: User): ISetCurrentUser => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: user,
+  };
+};
+
 export const login = (username: string, password: string) => async (
   dispatch: Dispatch<UserDispatchTypes>
 ) => {
@@ -45,7 +63,24 @@ export const login = (username: string, password: string) => async (
   );
   if (loggedUser) {
     dispatch(loginSuccess(loggedUser));
+    localStorage.setItem("user", JSON.stringify(loggedUser));
   } else {
     dispatch(loginFailure("Login failed."));
+    localStorage.removeItem("user");
   }
+};
+
+export const setCurrentUser = () => (dispatch: Dispatch<UserDispatchTypes>) => {
+  const currentUser = localStorage.getItem("user");
+  let user = null;
+  if (currentUser) {
+    user = JSON.parse(currentUser);
+  }
+
+  dispatch(setUser(user));
+};
+
+export const logout = () => (dispatch: Dispatch<UserDispatchTypes>) => {
+  localStorage.removeItem("user");
+  dispatch(signout());
 };

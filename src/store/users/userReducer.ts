@@ -4,6 +4,8 @@ import {
   LOGIN_START,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
+  LOGOUT,
+  SET_CURRENT_USER,
 } from "./userActionTypes";
 
 interface IUserState {
@@ -42,6 +44,16 @@ const userReducer = (
         currentUser: action.payload,
         loading: false,
         loggedIn: true,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        currentUser: undefined,
+      };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
       };
     default:
       return state;

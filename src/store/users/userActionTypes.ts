@@ -2,6 +2,10 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 
+export const LOGOUT = "LOGOUT";
+
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
+
 export type User = {
   username: string;
   roles: string[];
@@ -21,4 +25,18 @@ export interface ILoginSuccess {
   payload: User;
 }
 
-export type UserDispatchTypes = ILoginStart | ILoginFailure | ILoginSuccess;
+export interface ILogout {
+  type: typeof LOGOUT;
+}
+
+export interface ISetCurrentUser {
+  type: typeof SET_CURRENT_USER;
+  payload?: User;
+}
+
+export type UserDispatchTypes =
+  | ILoginStart
+  | ILoginFailure
+  | ILoginSuccess
+  | ILogout
+  | ISetCurrentUser;
