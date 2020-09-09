@@ -59,7 +59,7 @@
     color: white;
 }
 
-.main-nav__item--cta>a {
+.main-nav__item--cta>span {
     color: white;
     background-color: #ff1b68;
     padding: 0.5rem 1rem;
@@ -67,8 +67,8 @@
     cursor: pointer;
 }
 
-.main-nav__item--cta>a:hover,
-.main-nav__item--cta>a:active {
+.main-nav__item--cta>span:hover,
+.main-nav__item--cta>span:active {
     color: #ff1b68;
     background: white;
     border: none;

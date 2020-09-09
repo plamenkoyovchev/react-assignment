@@ -33,7 +33,7 @@ const Navigation = () => {
             onClick={onLogoutClickHandler}
             className="main-nav__item main-nav__item--cta logout-btn"
           >
-            <a>Logout</a>
+            <span>Logout</span>
           </li>
         </ul>
       </nav>
