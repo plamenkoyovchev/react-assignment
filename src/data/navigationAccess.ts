@@ -23,17 +23,17 @@ export const navigationAccess: {
       title: "Administration",
       link: "/administration",
     },
+    {
+      id: 4,
+      title: "Progress",
+      link: "/progress",
+    },
   ],
   User: [
     {
       id: 1,
       title: "Items",
       link: "/items",
-    },
-    {
-      id: 2,
-      title: "Progress",
-      link: "/progress",
     },
     {
       id: 3,
