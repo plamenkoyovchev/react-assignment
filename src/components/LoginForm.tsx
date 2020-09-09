@@ -6,7 +6,10 @@ import { login } from "../store/users/userActions";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -27,21 +30,39 @@ const LoginForm = () => {
 
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={onUsernameChangeHandler}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={onPasswordChangeHandler}
-        />
-        <button type="submit">Login</button>
-      </form>
+      <div className="login-form-container">
+        <h3>Sign In</h3>
+        <form className="login-form" onSubmit={submitHandler}>
+          <div>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={onUsernameChangeHandler}
+            />
+            <div>
+              <label></label>
+            </div>
+          </div>
+
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={onPasswordChangeHandler}
+            />
+            <div>
+              <label></label>
+            </div>
+          </div>
+          <div>
+            <button className="submit-btn" type="submit">
+              Sign In
+            </button>
+          </div>
+        </form>
+      </div>
     </>
   );
 };
