@@ -50,11 +50,13 @@ const userReducer = (
     case LOGOUT:
       return {
         ...state,
+        loggedIn: false,
         currentUser: undefined,
       };
     case SET_CURRENT_USER:
       return {
         ...state,
+        loggedIn: action.payload !== null,
         currentUser: action.payload,
       };
     default:
