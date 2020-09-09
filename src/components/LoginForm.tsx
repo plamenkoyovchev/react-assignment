@@ -15,17 +15,41 @@ const LoginForm = () => {
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!validateInput()) {
+      return;
+    }
+
     dispatch(login(username, password));
   };
 
   const onUsernameChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setUsername(value);
+    setUsernameError("");
   };
 
   const onPasswordChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
     setPassword(value);
+    setPasswordError("");
+  };
+
+  const validateInput = () => {
+    if (!username) {
+      setUsernameError("Username is required!");
+    } else {
+      setUsernameError("");
+    }
+
+    if (!password) {
+      setPasswordError("Password is required!");
+    } else {
+      setPasswordError("");
+    }
+
+    const isValid = username !== "" && password !== "";
+
+    return isValid;
   };
 
   return (
@@ -40,9 +64,11 @@ const LoginForm = () => {
               value={username}
               onChange={onUsernameChangeHandler}
             />
-            <div>
-              <label></label>
-            </div>
+            {usernameError && (
+              <div>
+                <label className="validation-error">{usernameError}</label>
+              </div>
+            )}
           </div>
 
           <div>
@@ -52,9 +78,11 @@ const LoginForm = () => {
               value={password}
               onChange={onPasswordChangeHandler}
             />
-            <div>
-              <label></label>
-            </div>
+            {passwordError && (
+              <div>
+                <label className="validation-error">{passwordError}</label>
+              </div>
+            )}
           </div>
           <div>
             <button className="submit-btn" type="submit">
