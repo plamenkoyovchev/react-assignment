@@ -1,10 +1,8 @@
 import React from "react";
 
 import HomePage from "../../Pages/HomePage";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "../Navigation/PrivateRoute";
-
-import LoginForm from "../LoginForm";
 
 import ItemsPage from "../../Pages/ItemsPage";
 import ProgressPage from "../../Pages/ProgressPage";
@@ -30,12 +28,6 @@ const AppRouter: React.FC<IProps> = ({ currentUser }) => {
           <>
             <Navigation />
             <Switch>
-              <Route
-                path="/auth"
-                render={() =>
-                  currentUser ? <Redirect to="/" /> : <LoginForm />
-                }
-              />
               <PrivateRoute
                 path="/items"
                 Component={ItemsPage}
