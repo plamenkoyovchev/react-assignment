@@ -49,7 +49,7 @@ const AppRouter: React.FC<IProps> = ({ currentUser }) => {
                 path="/progress"
                 Component={ProgressPage}
                 userRole={currentUser?.role}
-                requiredRoles={[String(UserRoles.User)]}
+                requiredRoles={[String(UserRoles.Admin)]}
               />
               <PrivateRoute
                 path="/profile"
