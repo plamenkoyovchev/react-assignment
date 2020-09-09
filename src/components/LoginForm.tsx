@@ -3,6 +3,7 @@ import "./LoginForm.css";
 
 import { useDispatch } from "react-redux";
 import { login } from "../store/users/userActions";
+import TextInput from "./UI/Form/TextInput";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -69,33 +70,22 @@ const LoginForm = () => {
       <div className="login-form-container">
         <h3>Sign In</h3>
         <form className="login-form" onSubmit={submitHandler}>
-          <div>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={onUsernameChangeHandler}
-            />
-            {usernameError && (
-              <div>
-                <label className="validation-error">{usernameError}</label>
-              </div>
-            )}
-          </div>
-
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={onPasswordChangeHandler}
-            />
-            {passwordError && (
-              <div>
-                <label className="validation-error">{passwordError}</label>
-              </div>
-            )}
-          </div>
+          <TextInput
+            type="text"
+            name="username"
+            value={username}
+            changed={onUsernameChangeHandler}
+            placeholder="Username"
+            error={usernameError}
+          />
+          <TextInput
+            type="password"
+            name="password"
+            value={password}
+            changed={onPasswordChangeHandler}
+            placeholder="Password"
+            error={passwordError}
+          />
           <div>
             <button className="submit-btn" type="submit">
               Sign In
