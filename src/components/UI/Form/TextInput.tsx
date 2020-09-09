@@ -25,6 +25,7 @@ const TextInput: React.FC<IProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={changed}
+        name={name}
       />
       {error && (
         <div>
