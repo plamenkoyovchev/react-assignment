@@ -68,12 +68,6 @@ class Items extends React.Component {
   constructor(props) {
     super(props);
 
-    this._defaultSortIndexes = [];
-    var size = this.props.items.data.getSize();
-    for (var index = 0; index < size; index++) {
-      this._defaultSortIndexes.push(index);
-    }
-
     this.state = {
       colSortDirs: {},
       sortedDataList: this.props.items.data,
@@ -90,11 +84,22 @@ class Items extends React.Component {
     }));
   }
 
+  getDefaultSortIndexes = (items) => {
+    var sortIndexes = [];
+    var size = items.getSize();
+    for (var index = 0; index < size; index++) {
+      sortIndexes.push(index);
+    }
+
+    return sortIndexes;
+  };
+
   _onSortChange(columnKey, sortDir) {
-    var sortIndexes = this._defaultSortIndexes.slice();
+    const { data } = this.props.items;
+    var sortIndexes = this.getDefaultSortIndexes(data).slice();
     sortIndexes.sort((indexA, indexB) => {
-      var valueA = this.props.items.data.getObjectAt(indexA)[columnKey];
-      var valueB = this.props.items.data.getObjectAt(indexB)[columnKey];
+      var valueA = data.getObjectAt(indexA)[columnKey];
+      var valueB = data.getObjectAt(indexB)[columnKey];
       var sortVal = 0;
       if (valueA > valueB) {
         sortVal = 1;
