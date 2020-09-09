@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { RootStore } from "../store/store";
 
 import Loader from "../components/UI/Loader";
-import { Redirect } from "react-router";
+import Navigation from "../components/Navigation/Navigation";
 
 export const HomePage = () => {
   const { currentUser, loading } = useSelector(
@@ -16,7 +16,7 @@ export const HomePage = () => {
     return <Loader />;
   }
 
-  return <>{currentUser ? <Redirect to="/items" /> : <LoginForm />}</>;
+  return <>{currentUser ? <Navigation /> : <LoginForm />}</>;
 };
 
 export default HomePage;
