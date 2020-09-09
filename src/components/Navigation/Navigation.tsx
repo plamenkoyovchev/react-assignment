@@ -3,15 +3,16 @@ import React from "react";
 import "./Navigation.css";
 import NavItem from "./NavItem";
 
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../store/users/userActions";
 import { RootStore } from "../../store/store";
 import { navigationAccess } from "../../data/navigationAccess";
 
-const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
+const Navigation = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { currentUser } = useSelector((state: RootStore) => state.user);
   const onLogoutClickHandler = () => {
@@ -26,6 +27,7 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
       <nav className="main-nav">
         <ul className="main-nav__items">
           {currentUser &&
+            userNavItems &&
             userNavItems.map((item) => <NavItem key={item.id} item={item} />)}
           <li
             onClick={onLogoutClickHandler}
@@ -39,4 +41,4 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
   );
 };
 
-export default withRouter(Navigation);
+export default Navigation;
