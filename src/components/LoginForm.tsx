@@ -23,8 +23,8 @@ const LoginForm = () => {
     dispatch(login(username, password));
   };
 
-  const onUsernameChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
+  const onUsernameChangeHandler = (e: any) => {
+    const { value } = e.target;
     if (hasWhitespace(value)) {
       setUsernameError("Whitespaces are not allowed!");
     } else {
@@ -33,8 +33,8 @@ const LoginForm = () => {
     }
   };
 
-  const onPasswordChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
+  const onPasswordChangeHandler = (e: any) => {
+    const { value } = e.target;
     if (hasWhitespace(value)) {
       setPasswordError("Whitespaces are not allowed!");
     } else {
