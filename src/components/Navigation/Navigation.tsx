@@ -31,7 +31,7 @@ const Navigation = () => {
             userNavItems.map((item) => <NavItem key={item.id} item={item} />)}
           <li
             onClick={onLogoutClickHandler}
-            className="main-nav__item main-nav__item--cta"
+            className="main-nav__item main-nav__item--cta logout-btn"
           >
             <a>Logout</a>
           </li>

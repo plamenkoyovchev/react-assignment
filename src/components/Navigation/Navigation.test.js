@@ -76,4 +76,25 @@ describe("<Navigation />", () => {
 
     expect(wrapper.find(NavItem)).toHaveLength(0);
   });
+
+  it("should see button with class logout-btn if the user is loggedIn", () => {
+    const store = mockStore({
+      user: {
+        currentUser: {
+          role: null,
+        },
+        loggedIn: true,
+      },
+    });
+
+    const wrapper = mount(
+      <Provider store={store}>
+        <BrowserRouter>
+          <Navigation />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    expect(wrapper.find(".logout-btn")).toHaveLength(1);
+  });
 });
