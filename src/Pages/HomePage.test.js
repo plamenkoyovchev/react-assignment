@@ -32,7 +32,7 @@ describe("<HomePage />", () => {
     expect(wrapper.find(LoginForm)).toHaveLength(1);
   });
 
-  it("should Redirect if the user is logged in", () => {
+  it("should render <Navigation /> if the user is logged in", () => {
     const store = mockStore({
       user: {
         currentUser: {
