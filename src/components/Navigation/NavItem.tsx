@@ -9,7 +9,9 @@ interface IProps {
 const NavItem: React.FC<IProps> = ({ item }) => {
   return (
     <li className="main-nav__item">
-      <NavLink to={item.link}>{item.title}</NavLink>
+      <NavLink to={item.link} activeClassName="active-link">
+        {item.title}
+      </NavLink>
     </li>
   );
 };
