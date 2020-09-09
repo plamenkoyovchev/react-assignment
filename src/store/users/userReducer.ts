@@ -30,6 +30,7 @@ const userReducer = (
       return {
         ...state,
         loading: true,
+        error: "",
       };
     case LOGIN_FAILURE:
       return {
@@ -44,6 +45,7 @@ const userReducer = (
         currentUser: action.payload,
         loading: false,
         loggedIn: true,
+        error: "",
       };
     case LOGOUT:
       return {
