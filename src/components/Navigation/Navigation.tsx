@@ -15,6 +15,7 @@ const Navigation = () => {
   const history = useHistory();
 
   const { currentUser } = useSelector((state: RootStore) => state.user);
+
   const onLogoutClickHandler = () => {
     dispatch(logout());
     history.push("/");
