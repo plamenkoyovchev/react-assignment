@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { fetchItems } from "../store/items/itemsActions.ts";
 import "./Items.css";
 
-import FakeObjectDataListStore from "../shared/helpers/grid/FakeObjectDataListStore";
 import { TextCell } from "../shared/helpers/grid/cells";
 import { Table, Column, Cell } from "fixed-data-table-2";
 import "fixed-data-table-2/dist/fixed-data-table.css";
