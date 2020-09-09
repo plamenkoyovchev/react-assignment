@@ -1,5 +1,6 @@
 import React from "react";
-
+import { connect } from "react-redux";
+import { fetchItems } from "../store/items/itemsActions.ts";
 import "./Items.css";
 
 import FakeObjectDataListStore from "../shared/helpers/grid/FakeObjectDataListStore";
@@ -67,27 +68,33 @@ class Items extends React.Component {
   constructor(props) {
     super(props);
 
-    this._dataList = new FakeObjectDataListStore(50);
-
     this._defaultSortIndexes = [];
-    var size = this._dataList.getSize();
+    var size = this.props.items.data.getSize();
     for (var index = 0; index < size; index++) {
       this._defaultSortIndexes.push(index);
     }
 
     this.state = {
-      sortedDataList: this._dataList,
       colSortDirs: {},
+      sortedDataList: this.props.items.data,
     };
 
     this._onSortChange = this._onSortChange.bind(this);
   }
 
+  componentDidMount() {
+    this.props.getItems();
+
+    this.setState((prevState, props) => ({
+      sortedDataList: props.items.data,
+    }));
+  }
+
   _onSortChange(columnKey, sortDir) {
     var sortIndexes = this._defaultSortIndexes.slice();
     sortIndexes.sort((indexA, indexB) => {
-      var valueA = this._dataList.getObjectAt(indexA)[columnKey];
-      var valueB = this._dataList.getObjectAt(indexB)[columnKey];
+      var valueA = this.props.items.data.getObjectAt(indexA)[columnKey];
+      var valueB = this.props.items.data.getObjectAt(indexB)[columnKey];
       var sortVal = 0;
       if (valueA > valueB) {
         sortVal = 1;
@@ -102,12 +109,12 @@ class Items extends React.Component {
       return sortVal;
     });
 
-    this.setState({
-      sortedDataList: new DataListWrapper(sortIndexes, this._dataList),
+    this.setState((prevState, props) => ({
+      sortedDataList: new DataListWrapper(sortIndexes, props.items.data),
       colSortDirs: {
         [columnKey]: sortDir,
       },
-    });
+    }));
   }
 
   render() {
@@ -192,4 +199,16 @@ class Items extends React.Component {
   }
 }
 
-export default Items;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    items: state.items,
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getItems: () => dispatch(fetchItems()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Items);

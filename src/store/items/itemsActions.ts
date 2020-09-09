@@ -18,7 +18,9 @@ const itemsFetchingStart = (): IItemsFetchingStart => {
   };
 };
 
-const itemsFetchingSuccess = (data: any[]): IItemsFetchingSuccess => {
+const itemsFetchingSuccess = (
+  data: FakeObjectDataListStore
+): IItemsFetchingSuccess => {
   return {
     type: ITEMS_FETCHING_SUCCESS,
     payload: data,
@@ -36,7 +38,7 @@ export const fetchItems = () => (dispatch: Dispatch<ItemsDispatchTypes>) => {
   try {
     dispatch(itemsFetchingStart());
     const data = new FakeObjectDataListStore(50);
-    dispatch(itemsFetchingSuccess(data.getAll()));
+    dispatch(itemsFetchingSuccess(data));
   } catch (error) {
     dispatch(itemsFetchingFailure("Loading data failed."));
   }
