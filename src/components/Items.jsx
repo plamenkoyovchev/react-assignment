@@ -1,211 +1,66 @@
-import React from "react";
+import React, { useEffect } from "react";
+
+import GridComponent from "./UI/Grid/GridComponent";
+
 import { connect } from "react-redux";
 import { fetchItems } from "../store/items/itemsActions.ts";
 import "./Items.css";
 
-import { TextCell } from "../shared/helpers/grid/cells";
-import { Table, Column, Cell } from "fixed-data-table-2";
-import "fixed-data-table-2/dist/fixed-data-table.css";
+import Loader from "./UI/Loader";
 
-var SortTypes = {
-  ASC: "ASC",
-  DESC: "DESC",
-};
-
-function reverseSortDirection(sortDir) {
-  return sortDir === SortTypes.DESC ? SortTypes.ASC : SortTypes.DESC;
-}
-
-class SortHeaderCell extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this._onSortChange = this._onSortChange.bind(this);
-  }
-
-  render() {
-    var { onSortChange, sortDir, children, ...props } = this.props;
-    return (
-      <Cell {...props}>
-        <span onClick={this._onSortChange}>
-          {children} {sortDir ? (sortDir === SortTypes.DESC ? "↓" : "↑") : ""}
-        </span>
-      </Cell>
-    );
-  }
-
-  _onSortChange(e) {
-    e.preventDefault();
-
-    if (this.props.onSortChange) {
-      this.props.onSortChange(
-        this.props.columnKey,
-        this.props.sortDir
-          ? reverseSortDirection(this.props.sortDir)
-          : SortTypes.DESC
-      );
-    }
-  }
-}
-
-class DataListWrapper {
-  constructor(indexMap, data) {
-    this._indexMap = indexMap;
-    this._data = data;
-  }
-
-  getSize() {
-    return this._indexMap.length;
-  }
-
-  getObjectAt(index) {
-    return this._data.getObjectAt(this._indexMap[index]);
-  }
-}
-
-class Items extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      colSortDirs: {},
-      sortedDataList: this.props.items.data,
-    };
-
-    this._onSortChange = this._onSortChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.getItems();
-
-    this.setState((prevState, props) => ({
-      sortedDataList: props.items.data,
-    }));
-  }
-
-  getDefaultSortIndexes = (items) => {
-    var sortIndexes = [];
-    var size = items.getSize();
-    for (var index = 0; index < size; index++) {
-      sortIndexes.push(index);
-    }
-
-    return sortIndexes;
-  };
-
-  _onSortChange(columnKey, sortDir) {
-    const { data } = this.props.items;
-    var sortIndexes = this.getDefaultSortIndexes(data).slice();
-    sortIndexes.sort((indexA, indexB) => {
-      var valueA = data.getObjectAt(indexA)[columnKey];
-      var valueB = data.getObjectAt(indexB)[columnKey];
-      var sortVal = 0;
-      if (valueA > valueB) {
-        sortVal = 1;
-      }
-      if (valueA < valueB) {
-        sortVal = -1;
-      }
-      if (sortVal !== 0 && sortDir === SortTypes.DESC) {
-        sortVal = sortVal * -1;
-      }
-
-      return sortVal;
-    });
-
-    this.setState((prevState, props) => ({
-      sortedDataList: new DataListWrapper(sortIndexes, props.items.data),
-      colSortDirs: {
-        [columnKey]: sortDir,
+const Items = ({ itemsState, getItems }) => {
+  const { data } = itemsState;
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Model",
+        columns: [
+          {
+            Header: "Vehicle",
+            accessor: "vehicle",
+          },
+          {
+            Header: "Model",
+            accessor: "model",
+          },
+        ],
       },
-    }));
+      {
+        Header: "Info",
+        columns: [
+          {
+            Header: "Manufacturer",
+            accessor: "manufacturer",
+          },
+          {
+            Header: "Color",
+            accessor: "color",
+          },
+        ],
+      },
+    ],
+    []
+  );
+
+  useEffect(() => {
+    getItems();
+  }, [getItems]);
+
+  if (!data) {
+    return <Loader />;
   }
 
-  render() {
-    var { sortedDataList, colSortDirs } = this.state;
-    return (
-      <Table
-        rowHeight={50}
-        rowsCount={sortedDataList.getSize()}
-        headerHeight={50}
-        width={1000}
-        height={500}
-        {...this.props}
-        className="page Items"
-      >
-        <Column
-          columnKey="id"
-          header={
-            <SortHeaderCell
-              onSortChange={this._onSortChange}
-              sortDir={colSortDirs.id}
-            >
-              id
-            </SortHeaderCell>
-          }
-          cell={<TextCell data={sortedDataList} />}
-          width={100}
-        />
-        <Column
-          columnKey="vehicle"
-          header={
-            <SortHeaderCell
-              onSortChange={this._onSortChange}
-              sortDir={colSortDirs.vehicle}
-            >
-              Vehicle
-            </SortHeaderCell>
-          }
-          cell={<TextCell data={sortedDataList} />}
-          width={200}
-        />
-        <Column
-          columnKey="manufacturer"
-          header={
-            <SortHeaderCell
-              onSortChange={this._onSortChange}
-              sortDir={colSortDirs.manufacturer}
-            >
-              Manufacturer
-            </SortHeaderCell>
-          }
-          cell={<TextCell data={sortedDataList} />}
-          width={200}
-        />
-        <Column
-          columnKey="model"
-          header={
-            <SortHeaderCell
-              onSortChange={this._onSortChange}
-              sortDir={colSortDirs.model}
-            >
-              Model
-            </SortHeaderCell>
-          }
-          cell={<TextCell data={sortedDataList} />}
-          width={200}
-        />
-        <Column
-          columnKey="color"
-          header={
-            <SortHeaderCell
-              onSortChange={this._onSortChange}
-              sortDir={colSortDirs.color}
-            >
-              Color
-            </SortHeaderCell>
-          }
-          cell={<TextCell data={sortedDataList} />}
-          width={200}
-        />
-      </Table>
-    );
-  }
-}
+  return (
+    <div className="page">
+      <h3>Items In Stock</h3>
+      <GridComponent columns={columns} data={data} />
+    </div>
+  );
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    items: state.items,
+    itemsState: state.items,
   };
 };
 
