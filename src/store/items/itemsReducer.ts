@@ -4,18 +4,17 @@ import {
   ITEMS_FETCHING_FAILURE,
   ItemsDispatchTypes,
 } from "./itemsActionTypes";
-import FakeObjectDataListStore from "../../shared/helpers/grid/FakeObjectDataListStore";
 
 interface IItemsState {
   loading: boolean;
   error: string;
-  data?: FakeObjectDataListStore;
+  data?: any;
 }
 
 const initialState: IItemsState = {
   loading: false,
   error: "",
-  data: new FakeObjectDataListStore(10),
+  data: null,
 };
 
 const itemsReducer = (

@@ -8,7 +8,7 @@ import {
   IItemsFetchingFailure,
 } from "./itemsActionTypes";
 
-import FakeObjectDataListStore from "../../shared/helpers/grid/FakeObjectDataListStore";
+import makeData from "../../shared/helpers/grid/makeData";
 
 import { Dispatch } from "redux";
 
@@ -18,9 +18,7 @@ const itemsFetchingStart = (): IItemsFetchingStart => {
   };
 };
 
-const itemsFetchingSuccess = (
-  data: FakeObjectDataListStore
-): IItemsFetchingSuccess => {
+const itemsFetchingSuccess = (data: any): IItemsFetchingSuccess => {
   return {
     type: ITEMS_FETCHING_SUCCESS,
     payload: data,
@@ -37,7 +35,7 @@ const itemsFetchingFailure = (error: string): IItemsFetchingFailure => {
 export const fetchItems = () => (dispatch: Dispatch<ItemsDispatchTypes>) => {
   try {
     dispatch(itemsFetchingStart());
-    const data = new FakeObjectDataListStore(50);
+    const data = makeData(15);
     dispatch(itemsFetchingSuccess(data));
   } catch (error) {
     dispatch(itemsFetchingFailure("Loading data failed."));
