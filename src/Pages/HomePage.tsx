@@ -7,7 +7,7 @@ import { RootStore } from "../store/store";
 
 import Loader from "../components/UI/Loader";
 
-const HomePage = () => {
+export const HomePage = () => {
   const { currentUser, loading } = useSelector(
     (state: RootStore) => state.user
   );
