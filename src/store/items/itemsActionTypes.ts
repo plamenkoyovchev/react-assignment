@@ -1,5 +1,3 @@
-import FakeObjectDataListStore from "../../shared/helpers/grid/FakeObjectDataListStore";
-
 export const ITEMS_FETCHING_START = "ITEMS_FETCHING_START";
 export const ITEMS_FETCHING_FAILURE = "ITEMS_FETCHING_FAILURE";
 export const ITEMS_FETCHING_SUCCESS = "ITEMS_FETCHING_SUCCESS";
@@ -15,7 +13,7 @@ export interface IItemsFetchingFailure {
 
 export interface IItemsFetchingSuccess {
   type: typeof ITEMS_FETCHING_SUCCESS;
-  payload: FakeObjectDataListStore;
+  payload: any;
 }
 
 export type ItemsDispatchTypes =
