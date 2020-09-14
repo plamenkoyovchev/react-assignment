@@ -5,7 +5,7 @@ import {
   ItemsDispatchTypes,
 } from "./itemsActionTypes";
 
-interface IItemsState {
+export interface IItemsState {
   loading: boolean;
   error: string;
   data?: any;

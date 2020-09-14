@@ -1,14 +1,29 @@
 import React, { useEffect } from "react";
+import "./Items.css";
 
 import GridComponent from "./UI/Grid/GridComponent";
 
-import { connect } from "react-redux";
-import { fetchItems } from "../store/items/itemsActions.ts";
-import "./Items.css";
+import { connect, ConnectedProps } from "react-redux";
+import { fetchItems } from "../store/items/itemsActions";
 
 import Loader from "./UI/Loader";
+import { RootState } from "../store/rootReducer";
 
-const Items = ({ itemsState, getItems }) => {
+const mapStateToProps = (state: RootState, ownProps: any) => {
+  return {
+    itemsState: state.items,
+  };
+};
+
+const mapDispatchToProps = {
+  getItems: () => fetchItems(),
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const Items: React.FC<PropsFromRedux> = ({ itemsState, getItems }) => {
   const { data } = itemsState;
   const columns = React.useMemo(
     () => [
@@ -58,16 +73,4 @@ const Items = ({ itemsState, getItems }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    itemsState: state.items,
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    getItems: () => dispatch(fetchItems()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Items);
+export default connector(Items);

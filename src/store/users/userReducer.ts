@@ -8,7 +8,7 @@ import {
   SET_CURRENT_USER,
 } from "./userActionTypes";
 
-interface IUserState {
+export interface IUserState {
   currentUser?: User;
   loggedIn: boolean;
   loading: boolean;
